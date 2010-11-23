@@ -5,12 +5,12 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "stash"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.summary = "Abstract interface to data structures servers"
+    gem.description = "Stash maps the facilities provided by data structures servers onto classes which mimic Ruby's built-in types"
     gem.email = "tony@medioh.com"
     gem.homepage = "http://github.com/tarcieri/stash"
     gem.authors = ["Tony Arcieri"]
-    gem.add_development_dependency "rspec", ">= 1.2.9"
+    gem.add_development_dependency "rspec", "~> 2.1.0"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
@@ -18,21 +18,19 @@ rescue LoadError
   puts "Jeweler (or a dependency) not available. Install it with: gem install jeweler"
 end
 
-require 'spec/rake/spectask'
-Spec::Rake::SpecTask.new(:spec) do |spec|
-  spec.libs << 'lib' << 'spec'
-  spec.spec_files = FileList['spec/**/*_spec.rb']
+require 'rspec/core/rake_task'
+RSpec::Core::RakeTask.new(:rspec) do |rspec|
+  rspec.rspec_opts = %w[-fs -c -b]
 end
 
-Spec::Rake::SpecTask.new(:rcov) do |spec|
-  spec.libs << 'lib' << 'spec'
-  spec.pattern = 'spec/**/*_spec.rb'
-  spec.rcov = true
+RSpec::Core::RakeTask.new(:rspec) do |rspec|
+  rspec.rspec_opts = %w[-fs -c -b]
+  rspec.rcov = true
 end
 
-task :spec => :check_dependencies
+task :rspec => :check_dependencies
 
-task :default => :spec
+task :default => :rspec
 
 require 'rake/rdoctask'
 Rake::RDocTask.new do |rdoc|
