@@ -12,9 +12,19 @@ class Stash::List
   
   # Cast to an array
   def to_ary
-    @adapter.list_range @key, 0, @adapter.list_length(@key)
+    @adapter.list_range @key, 0, length
   end
   alias_method :to_a, :to_ary
+  
+  # Get the length of a list
+  def length
+    @adapter.list_length(@key)
+  end
+  
+  # Is this list empty?
+  def empty?
+    length == 0
+  end
   
   # Clear all elements from the list
   def clear
@@ -29,9 +39,19 @@ class Stash::List
   end
   alias_method :<<, :push
   
+  # Unshift an element onto the list
+  def unshift(elem)
+    @adapter.list_unshift @key, elem.to_s
+  end  
+  
   # Iterate the list
   def each(&block)
     to_ary.each(&block)
+  end
+  
+  # Obtain the last element in a list
+  def last
+    to_ary[-1]
   end
   
   # Inspect a list
