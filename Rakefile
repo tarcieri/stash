@@ -29,6 +29,7 @@ RSpec::Core::RakeTask.new(:rspec) do |rspec|
 end
 
 task :rspec => :check_dependencies
+task :spec  => :rspec
 
 task :default => :rspec
 
