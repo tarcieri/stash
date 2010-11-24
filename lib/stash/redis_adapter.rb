@@ -55,6 +55,11 @@ class Stash
       @redis.rpush name.to_s, value.to_s
     end
     
+    # Unshift an element onto the list
+    def list_unshift(name, value)
+      @redis.lpush name.to_s, value.to_s
+    end
+    
     # Retrieve the length of a list
     def list_length(name)
       @redis.llen name.to_s
