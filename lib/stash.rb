@@ -1,5 +1,7 @@
 # Stash is an abstract interface to data structures servers
 class Stash
+  attr_reader :adapter
+  
   def initialize(config)
     raise ArgumentError, "no adapter specified" unless config[:adapter]
     adapter_name  = config[:adapter].to_s.split('_').map { |s| s.capitalize }.join
@@ -34,3 +36,4 @@ end
 require 'stash/class_methods'
 require 'stash/redis_adapter'
 require 'stash/string'
+require 'stash/list'

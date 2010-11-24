@@ -49,5 +49,20 @@ class Stash
     def delete(key)
       @redis.del key.to_s
     end
+    
+    # Push an element onto a list
+    def list_push(name, value)
+      @redis.rpush name.to_s, value.to_s
+    end
+    
+    # Retrieve the length of a list
+    def list_length(name)
+      @redis.llen name.to_s
+    end
+    
+    # Retrieve the given range from a list
+    def list_range(name, from, to)
+      @redis.lrange name.to_s, from, to
+    end
   end
 end
