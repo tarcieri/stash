@@ -23,6 +23,12 @@ class Stash
   def [](key)
     @adapter[key.to_s]
   end
+  
+  # Remove a key from the Stash
+  def delete(key)
+    @adapter.delete(key.to_s)
+    true
+  end
 end
 
 require 'stash/class_methods'

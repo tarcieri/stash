@@ -44,5 +44,10 @@ class Stash
     def get(key)
       @redis.get key.to_s
     end
+    
+    # Delete a key
+    def delete(key)
+      @redis.del key.to_s
+    end
   end
 end
