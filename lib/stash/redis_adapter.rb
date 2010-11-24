@@ -18,6 +18,10 @@ class Stash
       redis = Redis::Namespace.new config[:namespace], :redis => redis if config[:namespace]
       
       @capabilities = [:string]
+      
+      # Redis 2.0RC+ supports blocking pop
+      @capabilities << :bpop if redis.info['redis_version'] >= "1.3.0"
+      
       @redis = redis
     end
     
@@ -30,7 +34,8 @@ class Stash
     def [](key)
       case type(key)
       when "none"   then nil
-      when "string" then Stash::String.new key, @redis
+      when "string" then Stash::String.new key, self
+      when "list"   then Stash::List.new   key, self
       else raise "unknown Redis key type: #{key}"
       end
     end
@@ -70,6 +75,20 @@ class Stash
         @redis.lpop name.to_s
       else raise ArgumentError, "left or right plztks"
       end
+    end
+    
+    # Blocking pop from a list
+    def list_blocking_pop(name, side, timeout = nil)
+      timeout ||= 0
+      _, res = case side
+      when :left
+        @redis.blpop name, timeout
+      when :right
+        @redis.brpop name, timeout
+      else raise ArgumentError, "left or right plztks"
+      end
+      
+      res
     end
     
     # Retrieve the length of a list

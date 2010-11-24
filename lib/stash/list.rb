@@ -58,6 +58,18 @@ class Stash::List
   end
   alias_method :lpop, :shift
   
+  # Blocking shift: wait for a message to be pushed (with an optional timeout)
+  def bshift(timeout = nil)
+    @adapter.list_blocking_pop @key, :left, timeout
+  end
+  alias_method :blpop, :bshift
+  
+  # Blocking pop: wait for a message to be unshifted (with an optional timeout)
+  def bpop(timeout = nil)
+    @adapter.list_blocking_pop @key, :right, timeout
+  end
+  alias_method :brpop, :bpop
+  
   # Iterate the list
   def each(&block)
     to_ary.each(&block)
