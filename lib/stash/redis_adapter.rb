@@ -30,7 +30,7 @@ class Stash
     def [](key)
       case type(key)
       when "none"   then nil
-      when "string" then Stash::String.new @redis, key
+      when "string" then Stash::String.new key, @redis
       else raise "unknown Redis key type: #{key}"
       end
     end

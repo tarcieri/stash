@@ -10,4 +10,3 @@ Stash.setup :default, :adapter   => :redis,
                       :namespace => 'stash_test',
                       :host      => '127.0.0.1',
                       :port      => 6379
-                      
