@@ -6,6 +6,8 @@ require 'rspec'
 require 'rspec/autorun'
 
 # Connect to Redis
-Stash.setup :default, :adapter => :redis,
-                      :host => '127.0.0.1',
-                      :port => 6379
+Stash.setup :default, :adapter   => :redis,
+                      :namespace => 'stash_test',
+                      :host      => '127.0.0.1',
+                      :port      => 6379
+                      

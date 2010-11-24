@@ -6,7 +6,11 @@ class Stash
     def [](key)
       default[key]
     end
-  
+    
+    def []=(key, value)
+      default[key] = value
+    end
+    
     def setup(label, configuration)
       @configurations ||= {}
       @configurations[label.to_sym] = configuration
