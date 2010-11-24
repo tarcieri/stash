@@ -21,5 +21,29 @@ class Stash
       @capabilities = [:string]
       @redis = redis
     end
+    
+    # Set a given key within Redis
+    def []=(key, value)
+      @redis.set key.to_s, value.to_s
+    end
+    
+    # Retrieve a given key from Redis
+    def [](key)
+      case type(key)
+      when "none"   then nil
+      when "string" then Stash::String.new @redis, key
+      else raise "unknown Redis key type: #{key}"
+      end
+    end
+    
+    # Retrieve the type for a given key
+    def type(key)
+      @redis.type key.to_s
+    end
+    
+    # Retrieve a key as a string
+    def get(key)
+      @redis.get key.to_s
+    end
   end
 end
