@@ -17,7 +17,7 @@ class Stash
       redis = Redis.new config
       redis = Redis::Namespace.new config[:namespace], :redis => redis if config[:namespace]
       
-      @capabilities = [:string]
+      @capabilities = [:string, :list, :hash]
       
       # Redis 2.0RC+ supports blocking pop
       @capabilities << :bpop if redis.info['redis_version'] >= "1.3.0"
@@ -100,6 +100,33 @@ class Stash
     # Retrieve the given range from a list
     def list_range(name, from, to)
       @redis.lrange name.to_s, from, to
+    end
+    
+    # Retrieve a value from a hash
+    def hash_get(name, key)
+      res = @redis.hget name.to_s, key.to_s
+      return if res == ""
+      res
+    end
+    
+    # Store a value in a hash
+    def hash_set(name, key, value)
+      @redis.hset name.to_s, key.to_s, value.to_s
+    end
+    
+    # Retrieve the contents of a hash as a Ruby hash
+    def hash_value(name)
+      @redis.hgetall name.to_s
+    end
+    
+    # Delete an entry from a hash
+    def hash_delete(name, key)
+      @redis.hdel name.to_s, key.to_s
+    end
+    
+    # Return the length of a hash
+    def hash_length(name)
+      @redis.hlen name.to_s
     end
   end
 end
