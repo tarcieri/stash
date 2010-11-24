@@ -80,7 +80,7 @@ class Stash
     # Blocking pop from a list
     def list_blocking_pop(name, side, timeout = nil)
       timeout ||= 0
-      _, res = case side
+      res = case side
       when :left
         @redis.blpop name, timeout
       when :right
@@ -88,7 +88,8 @@ class Stash
       else raise ArgumentError, "left or right plztks"
       end
       
-      res
+      return res[1] if res
+      raise Stash::TimeoutError, "request timed out"
     end
     
     # Retrieve the length of a list

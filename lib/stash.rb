@@ -2,6 +2,9 @@
 class Stash
   attr_reader :adapter
   
+  # Timeout when performing a blocking action, such as blocking pop
+  class TimeoutError < StandardError; end
+  
   def initialize(config)
     raise ArgumentError, "no adapter specified" unless config[:adapter]
     adapter_name  = config[:adapter].to_s.split('_').map { |s| s.capitalize }.join
