@@ -60,6 +60,11 @@ class Stash
       @redis.lpush name.to_s, value.to_s
     end
     
+    # Pop from a list
+    def list_pop(name)
+      @redis.rpop name.to_s
+    end
+    
     # Retrieve the length of a list
     def list_length(name)
       @redis.llen name.to_s

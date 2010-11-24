@@ -31,6 +31,12 @@ describe Stash::List do
     @list.to_a.should == ["lulz", "omfg"]
   end
   
+  it "pops from lists" do
+    @list << "x"
+    @list << "y"
+    @list.pop.should == "y"
+  end
+  
   it "knows its length" do
     @list.length.should == 0
     

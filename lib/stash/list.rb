@@ -32,17 +32,25 @@ class Stash::List
     self
   end
   
-  # Push an element onto the list
+  # Push an element onto the list (i.e. right push)
   def push(elem)
     @adapter.list_push @key, elem.to_s
     self
   end
   alias_method :<<, :push
+  alias_method :rpush, :push
   
-  # Unshift an element onto the list
+  # Unshift an element onto the list (i.e. left push)
   def unshift(elem)
     @adapter.list_unshift @key, elem.to_s
-  end  
+  end
+  alias_method :lpush, :unshift
+  
+  # Pop from a list (i.e. right pop)
+  def pop
+    @adapter.list_pop @key
+  end
+  alias_method :rpop, :pop
   
   # Iterate the list
   def each(&block)
