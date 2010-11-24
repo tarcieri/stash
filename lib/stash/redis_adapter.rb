@@ -11,9 +11,8 @@ class Stash
       # Symbolize keys in config
       config = config.inject({}) { |h, (k, v)| h[k.to_sym] = v; h }
       
-      [:host, :port].each do |key|
-        raise ArgumentError, "missing redis configuration option: #{key}" unless config[key]
-      end
+      raise ArgumentError, "missing 'host' key" unless config[:host]
+      config[:port] ||= 6379 # Default Redis port
       
       redis = Redis.new config
       redis = Redis::Namespace.new config[:namespace], :redis => redis if config[:namespace]

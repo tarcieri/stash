@@ -14,7 +14,11 @@ class Stash
     def setup(label, configuration)
       @configurations ||= {}
       @configurations[label.to_sym] = configuration
-      @default = nil if label == :default
+      
+      if label == :default
+        @default = nil
+        default
+      end
     end
   
     def default
