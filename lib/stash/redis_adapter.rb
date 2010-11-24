@@ -51,18 +51,25 @@ class Stash
     end
     
     # Push an element onto a list
-    def list_push(name, value)
-      @redis.rpush name.to_s, value.to_s
+    def list_push(name, value, side)
+      case side
+      when :right
+        @redis.rpush name.to_s, value.to_s
+      when :left
+        @redis.lpush name.to_s, value.to_s
+      else raise ArgumentError, "left or right plztks"
+      end
     end
-    
-    # Unshift an element onto the list
-    def list_unshift(name, value)
-      @redis.lpush name.to_s, value.to_s
-    end
-    
+        
     # Pop from a list
-    def list_pop(name)
-      @redis.rpop name.to_s
+    def list_pop(name, side)
+      case side
+      when :right
+        @redis.rpop name.to_s
+      when :left
+        @redis.lpop name.to_s
+      else raise ArgumentError, "left or right plztks"
+      end
     end
     
     # Retrieve the length of a list

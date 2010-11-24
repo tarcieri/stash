@@ -34,7 +34,17 @@ describe Stash::List do
   it "pops from lists" do
     @list << "x"
     @list << "y"
-    @list.pop.should == "y"
+    @list << "z"
+    @list.pop.should == "z"
+    @list.to_a.should == ["x", "y"]
+  end
+  
+  it "shifts from lists" do
+    @list << "x"
+    @list << "y"
+    @list << "z"
+    @list.shift.should == "x"
+    @list.to_a.should == ["y", "z"]
   end
   
   it "knows its length" do
