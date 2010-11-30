@@ -67,12 +67,12 @@ Or iterated with:
 
     Stash::List[:baz].each { |elem| ... }
     
-<small>
+<span style="font-size: 0.75em"
 * Stash asks you to think of lists as being somewhat loosely ordered. This 
 means that Stash will make its best effort to give you a list in order, 
 however that order may shift around depending on how the backend storage 
 system is implemented. Distributed systems may be interesting properties.
-</small>
+</span>
     
 Hashes
 ------
