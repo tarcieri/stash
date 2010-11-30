@@ -44,7 +44,7 @@ And deleted with:
 Lists
 -----
 
-Stash supports a mostly* ordered list type. You can retrieve a list with:
+Stash supports a mostly ordered list type. You can retrieve a list with:
 
     Stash::List[:baz]
     
@@ -67,12 +67,10 @@ Or iterated with:
 
     Stash::List[:baz].each { |elem| ... }
     
-<span style="font-size: 0.75em"
-* Stash asks you to think of lists as being somewhat loosely ordered. This 
+Stash asks you to think of lists as being somewhat loosely ordered. This 
 means that Stash will make its best effort to give you a list in order, 
 however that order may shift around depending on how the backend storage 
 system is implemented. Distributed systems may be interesting properties.
-</span>
     
 Hashes
 ------
