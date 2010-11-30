@@ -19,7 +19,7 @@ connection:
 This will connect to the Redis server listening on localhost. Stash.setup
 takes an options hash with the following parameters:
 
-- **adapter**: must be "redis"
+- **adapter**: must be "redis" (*mandatory*)
 - **host**: hostname or IP address of the Redis server (*mandatory*)
 - **port**: port of the Redis server (*optional, default 6379*)
 - **namespace**: Redis namspace to use (*optional, default global namespace*)
