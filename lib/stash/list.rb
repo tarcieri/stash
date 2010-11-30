@@ -73,6 +73,7 @@ class Stash::List
   # Iterate the list
   def each(&block)
     to_ary.each(&block)
+    self
   end
   
   # Obtain the last element in a list

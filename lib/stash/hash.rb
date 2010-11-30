@@ -49,6 +49,7 @@ class Stash::Hash
   # Enumerate hashes
   def each(&block)
     to_hash.each(&block)
+    self
   end
   
   # Inspect a hash
