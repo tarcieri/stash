@@ -2,7 +2,7 @@
 # They store exactly that, a string, and nothing more
 class Stash::String
   def initialize(key, adapter = Stash.default.adapter)
-    @adapter, @key = adapter, key.to_s
+    @key, @adapter = key.to_s, adapter
   end
   
   def to_string
@@ -11,6 +11,6 @@ class Stash::String
   alias_method :to_s, :to_string
   
   def inspect
-    "#<Stash::String[:#{key}]: #{to_s}>"
+    "#<Stash::String[:#{@key}]: #{to_s}>"
   end
 end
