@@ -5,8 +5,6 @@ class Stash
   # Adapter for the Redis data structures server. 
   # See http://code.google.com/p/redis/
   class RedisAdapter
-    attr_reader :capabilities
-    
     def initialize(config)
       # Symbolize keys in config
       config = config.inject({}) { |h, (k, v)| h[k.to_sym] = v; h }
@@ -16,12 +14,7 @@ class Stash
       
       redis = Redis.new config
       redis = Redis::Namespace.new config[:namespace], :redis => redis if config[:namespace]
-      
-      @capabilities = [:string, :list, :hash]
-      
-      # Redis 2.0RC+ supports blocking pop
-      @capabilities << :bpop if redis.info['redis_version'] >= "1.3.0"
-      
+            
       @redis = redis
     end
     
