@@ -41,6 +41,18 @@ class Stash
       default.delete(key)
       true
     end
+    
+    # Obtain the class for a given adapter name
+    def adapter_class(name)
+      adapter_name = name.to_s.split('_').map { |s| s.capitalize }.join
+      adapter_name << "Adapter"
+      
+      begin
+        Stash.const_get adapter_name
+      rescue NameError
+        raise ArgumentError, "unknown adapter: #{name}"
+      end
+    end
   end
   
   extend ClassMethods
